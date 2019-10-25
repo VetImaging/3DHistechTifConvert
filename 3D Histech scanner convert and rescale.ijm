@@ -9,12 +9,13 @@
 /* Create interactive Window to set variables for 
  * input/output folder, input/output suffix, scale factor, subfolder-processing
  */
+#@ String (visibility=MESSAGE, value="Choose your files and parameter", required=false) msg
 #@ File (label = "Input directory", style = "directory") 		input_folder
 #@ File (label = "Output directory", style = "directory") 		output_folder
-#@ String (label = "File suffix input", choices={".tif",".tiff",".jpg",".jpeg",".png",".mrxs"}) 	suffix_in
-#@ String (label = "File suffix output", choices={".jpg",".png",".tif"}) 	suffix_out
+#@ String (label = "File suffix input", description=".mrxs not supported!", choices={".jpg",".png",".tif",".jpeg",".tiff",".mrxs"}, style="radioButtonHorizontal") 	suffix_in
+#@ String (label = "File suffix output", choices={".jpg",".png",".tif"}, style="radioButtonHorizontal") 	suffix_out
 #@ Integer (label = "Scale factor (%)", value=100) 			scale_percentage
-#@ String (label = "Include subfolders", choices={"no","yes"}) 		subfolders
+#@ String (label = "Include subfolders", choices={"no","yes"}, style="radioButtonHorizontal") 		subfolders
 
 run("Collect Garbage");
 
