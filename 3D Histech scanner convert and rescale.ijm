@@ -10,7 +10,7 @@
  */
 #@ File (label = "Input directory", style = "directory") 		input_folder
 #@ File (label = "Output directory", style = "directory") 		output_folder
-#@ String (label = "File suffix input", choices={".tif"}) 		suffix_in
+#@ String (label = "File suffix input", choices={".tif",".mrxs"}) 	suffix_in
 #@ String (label = "File suffix output", choices={".jpg",".tif"}) 	suffix_out
 #@ Integer (label = "Scale factor (%)", value=100) 			scale_percentage
 #@ String (label = "Include subfolders", choices={"no","yes"}) 		subfolders
@@ -54,7 +54,7 @@ function processFile(input_folder, output_folder, file) {
 		selectWindow(file);
 		roiManager("Select", 0);
 		run("Crop");
-		selectWindow(file+"_threshold");
+		selectWindow(file+"_threshold"); 
 		run("Close");
 	}
 	
@@ -76,6 +76,9 @@ function processFile(input_folder, output_folder, file) {
 	if (endsWith(getTitle(),"_Wholeslide_Default_Extended.tif (RGB)-1")) 
 		file = replace(file, "_Wholeslide_Default_Extended.tif", "");
 	
+	if (endsWith(getTitle(),".mrxs")) 
+		file = replace(file, ".mrxs", "");
+	
 	if(suffix_out==".jpg") 
 		saveAs("Jpeg", output_folder + "\\" + file + ".jpg");
 		
@@ -85,6 +88,7 @@ function processFile(input_folder, output_folder, file) {
 
 // FIJI created macro for color-threshold, excluding white pixels (0-244)
 function colorthreshold(file){
+	roiManager("reset");
 	min=newArray(3);
 	max=newArray(3);
 	filter=newArray(3);
@@ -108,10 +112,8 @@ function colorthreshold(file){
 	imageCalculator("AND create", "Result of 0","2");
 	for (i=0;i<3;i++){
 	  selectWindow(""+i);
-	  close();
+	  run("Close");
 	}
-	selectWindow("Result of 0");
-	close();
-	selectWindow("Result of Result of 0");
-	rename(a);
+	selectWindow("Result of 0");		run("Close");
+	selectWindow("Result of Result of 0");	rename(a);
 }
