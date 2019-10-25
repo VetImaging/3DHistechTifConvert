@@ -25,14 +25,16 @@ function processFolder(input_folder) {
 	filelist = getFileList(input_folder);
 	filelist = Array.sort(filelist);
 	for (i = 0; i < filelist.length; i++) {
-		// only precess recursion for subfolders if option "Include subfolders" is true
+		
+		// process recursion for subfolders if option "Include subfolders" is true
 		if(subfolders=="yes"){
 		if(File.isDirectory(input_folder + File.separator + filelist[i]))
 			processFolder(input_folder + File.separator + filelist[i]);}
 			
-		// for images with correct suffix proceed with function processFile
+		// for images with correct suffix proceed with function processFile()
 		if(endsWith(filelist[i], suffix_in))
 			processFile(input_folder, output_folder, filelist[i]);
+		
 		run("Close All");
 		run("Collect Garbage");
 	}
@@ -46,10 +48,12 @@ function processFile(input_folder, output_folder, file) {
 	scaled_width=round(scale_factor * getWidth());
 	scaled_height=round(scale_factor * getHeight());
 	run("Scale...", "x=" + scale_factor + " y="+ scale_factor +" width="+ scaled_width +" height=" + scaled_height +" interpolation=Bilinear average create");
-		
+	
+	// export of ROIs with Case Converter adds "-5060C-ZERO_Extended" to the filename
 	if (endsWith(getTitle(),"-5060C-ZERO_Extended.tif (RGB)-1")) 
 		file = replace(file, "-5060C-ZERO_Extended.tif", "");
-
+	
+	// export of Whole slides with Case Converter adds "_Wholeslide_Default_Extended" to the filename
 	if (endsWith(getTitle(),"_Wholeslide_Default_Extended.tif (RGB)-1")) 
 		file = replace(file, "_Wholeslide_Default_Extended.tif", "");
 	
