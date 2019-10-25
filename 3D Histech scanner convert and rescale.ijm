@@ -45,12 +45,12 @@ function processFile(input_folder, output_folder, file) {
 	scale_factor=scale_percentage/100;
 	scaled_width=round(scale_factor * getWidth());
 	scaled_height=round(scale_factor * getHeight());
-	run("Scale...", "x=" + scale_factor + " y="+ scale_factor +" width="+ scaled_width +" height=" + scaled_height +" interpolation=Bilinear average");
+	run("Scale...", "x=" + scale_factor + " y="+ scale_factor +" width="+ scaled_width +" height=" + scaled_height +" interpolation=Bilinear average create");
 		
-	if (endsWith(getTitle(),"-5060C-ZERO_Extended.tif (RGB)")) 
+	if (endsWith(getTitle(),"-5060C-ZERO_Extended.tif (RGB)-1")) 
 		file = replace(file, "-5060C-ZERO_Extended.tif", "");
 
-	if (endsWith(getTitle(),"_Wholeslide_Default_Extended.tif (RGB)")) 
+	if (endsWith(getTitle(),"_Wholeslide_Default_Extended.tif (RGB)-1")) 
 		file = replace(file, "_Wholeslide_Default_Extended.tif", "");
 	
 	if(suffix_out==".jpg") 
