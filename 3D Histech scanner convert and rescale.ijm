@@ -8,11 +8,11 @@
 /* Create interactive Window to set variables for 
  * input/output folder, input/output suffix, scale factor, subfolder-processing
  */
-#@ File (label = "Input directory", style = "directory") 			input_folder
-#@ File (label = "Output directory", style = "directory") 			output_folder
-#@ String (label = "File suffix input", choices={".tif"}) 			suffix_in
+#@ File (label = "Input directory", style = "directory") 		input_folder
+#@ File (label = "Output directory", style = "directory") 		output_folder
+#@ String (label = "File suffix input", choices={".tif"}) 		suffix_in
 #@ String (label = "File suffix output", choices={".jpg",".tif"}) 	suffix_out
-#@ Integer (label = "Scale factor (%)", value=100) 					scale_percentage
+#@ Integer (label = "Scale factor (%)", value=100) 			scale_percentage
 #@ String (label = "Include subfolders", choices={"no","yes"}) 		subfolders
 
 run("Collect Garbage");
