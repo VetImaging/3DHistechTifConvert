@@ -1,8 +1,9 @@
-/* Macro for converting extended tifs from Histech3D-slidescanner (vetmeduni-pathology) to jpgs or tifs
- * including optional resizing the images
- * input: mrxs to tiled tiff converted images with 3DHistech case converter
- * output: tif or jpg
- * VetImaging / VetCore / Vetmeduni Vienna
+/* Macro for converting 
+ * extended tifs from Histech3D-slidescanner (vetmeduni-pathology)
+ * optional resizing the images and other input-dataformat
+ * input: mrxs to tiled tiff converted images with 3DHistech case converter, jpg, png, tif
+ * output: tif, png or jpg
+ * SK / VetImaging / VetCore / Vetmeduni Vienna 2019
  */
 
 /* Create interactive Window to set variables for 
@@ -10,8 +11,8 @@
  */
 #@ File (label = "Input directory", style = "directory") 		input_folder
 #@ File (label = "Output directory", style = "directory") 		output_folder
-#@ String (label = "File suffix input", choices={".tif",".mrxs"}) 	suffix_in
-#@ String (label = "File suffix output", choices={".jpg",".tif"}) 	suffix_out
+#@ String (label = "File suffix input", choices={".tif",".tiff",".jpg",".jpeg",".png",".mrxs"}) 	suffix_in
+#@ String (label = "File suffix output", choices={".jpg",".png",".tif"}) 	suffix_out
 #@ Integer (label = "Scale factor (%)", value=100) 			scale_percentage
 #@ String (label = "Include subfolders", choices={"no","yes"}) 		subfolders
 
@@ -44,7 +45,9 @@ function processFolder(input_folder) {
 function processFile(input_folder, output_folder, file) {
 
 	if(suffix_in==".mrxs"){
-		open(input_folder + "\\" + file);
+		print("MIRAX-Data not supported. Use CaseConverter to export tifs.");
+		exit();
+		/*open(input_folder + "\\" + file);
 		run("Duplicate...", " ");
 		rename(file+"_threshold");
 		colorthreshold(getTitle());
@@ -55,12 +58,16 @@ function processFile(input_folder, output_folder, file) {
 		roiManager("Select", 0);
 		run("Crop");
 		selectWindow(file+"_threshold"); 
-		run("Close");
+		run("Close"); */
 	}
 	
-	if(suffix_in==".tif"){
+	if(suffix_in==".tif"||suffix_in==".tiff"){
     	run("Bio-Formats Windowless Importer", "open=[" + input_folder + "\\" + file +"]");
     	run("RGB Color");
+	}
+
+	if(suffix_in==".jpg"||suffix_in==".jpeg"||suffix_in==".png"){
+    	open(input_folder + "\\" + file);
 	}
 	
 	scale_factor=scale_percentage/100;
@@ -81,6 +88,9 @@ function processFile(input_folder, output_folder, file) {
 	
 	if(suffix_out==".jpg") 
 		saveAs("Jpeg", output_folder + "\\" + file + ".jpg");
+
+	if(suffix_out==".png") 
+		saveAs("PNG", output_folder + "\\" + file + ".png");
 		
 	if(suffix_out==".tif") 
 		saveAs("Tiff", output_folder  + "\\" + file + ".tif");
