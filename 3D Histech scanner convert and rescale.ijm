@@ -1,6 +1,6 @@
 /* Macro for converting extended tifs from Histech3D-slidescanner (vetmeduni-pathology) to jpgs or tifs
  * including optional resizing the images
- * input: mrxs --> tiled tiff conversion with case converter
+ * input: mrxs to tiled tiff converted images with 3DHistech case converter
  * output: tif or jpg
  * VetImaging / VetCore / Vetmeduni Vienna
  */
