@@ -49,9 +49,9 @@ function processFile(input_folder, output_folder, file) {
 	scaled_height=round(scale_factor * getHeight());
 	run("Scale...", "x=" + scale_factor + " y="+ scale_factor +" width="+ scaled_width +" height=" + scaled_height +" interpolation=Bilinear average create");
 	
-	// export of ROIs with Case Converter adds "-5060C-ZERO_Extended" to the filename
-	if (endsWith(getTitle(),"-5060C-ZERO_Extended.tif (RGB)-1")) 
-		file = replace(file, "-5060C-ZERO_Extended.tif", "");
+	// export of ROIs with Case Converter adds "_Default_Extended" to the filename
+	if (endsWith(getTitle(),"_Default_Extended.tif (RGB)-1")) 
+		file = replace(file, "_Default_Extended.tif", "");
 	
 	// export of Whole slides with Case Converter adds "_Wholeslide_Default_Extended" to the filename
 	if (endsWith(getTitle(),"_Wholeslide_Default_Extended.tif (RGB)-1")) 
