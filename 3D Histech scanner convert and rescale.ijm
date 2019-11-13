@@ -16,8 +16,10 @@
 #@ String (label = "File suffix output", choices={".jpg",".png",".tif"}, style="radioButtonHorizontal")	suffix_out
 #@ Integer (label = "Scale factor (%)", value=100) 					scale_percentage
 #@ String (label = "Include subfolders", choices={"no","yes"}, style="radioButtonHorizontal")	subfolders
+#@ String (label = "Run in silent batch mode", choices={"no","yes"}, style="radioButtonHorizontal") 	runBatch
 
 run("Collect Garbage");
+if(runBatch=="yes"){ setBatchMode(true); }
 
 processFolder(input_folder);
 
